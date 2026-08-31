@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AutoPrime — Venta de Vehículos</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: #F4F6F9;
+      color: #1B2638;
+    }
+
+    /* ── NAV ── */
+    nav {
+      background: #0D1B2A;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      height: 64px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-logo {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #FFFFFF;
+      letter-spacing: -0.5px;
+      text-decoration: none;
+    }
+    .nav-logo span { color: #E8700A; }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a {
+      color: #A8B4C4;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover, .nav-links a.active { color: #FFFFFF; }
+    .nav-links a.active { border-bottom: 2px solid #E8700A; padding-bottom: 2px; }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(135deg, #0D1B2A 55%, #1A3552 100%);
+      color: #FFFFFF;
+      padding: 96px 48px 80px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 48px;
+    }
+    .hero-text { max-width: 540px; }
+    .hero-eyebrow {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: #E8700A;
+      letter-spacing: 2px;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+    }
+    .hero h1 {
+      font-size: 3rem;
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+    .hero h1 em { font-style: normal; color: #E8700A; }
+    .hero p {
+      font-size: 1.05rem;
+      color: #A8B4C4;
+      line-height: 1.7;
+      margin-bottom: 36px;
+      max-width: 440px;
+    }
+    .btn-primary {
+      display: inline-block;
+      background: #E8700A;
+      color: #FFFFFF;
+      padding: 14px 32px;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.95rem;
+      margin-right: 16px;
+    }
+    .btn-secondary {
+      display: inline-block;
+      color: #FFFFFF;
+      padding: 14px 32px;
+      border: 1.5px solid #3A5A7A;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+    .hero-stats {
+      display: flex;
+      gap: 40px;
+      flex-shrink: 0;
+    }
+    .stat { text-align: center; }
+    .stat strong {
+      display: block;
+      font-size: 2.4rem;
+      font-weight: 800;
+      color: #FFFFFF;
+    }
+    .stat span {
+      font-size: 0.8rem;
+      color: #7A95B0;
+      letter-spacing: 0.5px;
+    }
+
+    /* ── SECTION ── */
+    .section { padding: 72px 48px; }
+    .section-header { margin-bottom: 48px; }
+    .section-header h2 {
+      font-size: 1.9rem;
+      font-weight: 800;
+      color: #0D1B2A;
+      margin-bottom: 8px;
+    }
+    .section-header p {
+      font-size: 1rem;
+      color: #6A7F96;
+      max-width: 480px;
+    }
+
+    /* ── VEHICLE CARDS ── */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .card {
+      background: #FFFFFF;
+      border-radius: 6px;
+      overflow: hidden;
+      border: 1px solid #DDE3EC;
+    }
+    .card-img {
+      background: #1A3552;
+      height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+    }
+    .card-body { padding: 20px; }
+    .card-tag {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #E8700A;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .card h3 { font-size: 1.1rem; font-weight: 700; color: #0D1B2A; margin-bottom: 6px; }
+    .card-specs {
+      font-size: 0.82rem;
+      color: #8A9DB5;
+      margin-bottom: 16px;
+      line-height: 1.6;
+    }
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .price { font-size: 1.25rem; font-weight: 800; color: #0D1B2A; }
+    .price-sub { font-size: 0.75rem; color: #9AABB8; font-weight: 400; }
+    .btn-card {
+      background: #0D1B2A;
+      color: #FFFFFF;
+      padding: 8px 18px;
+      border-radius: 4px;
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 600;
+    }
+
+    /* ── WHY ── */
+    .why { background: #0D1B2A; padding: 72px 48px; }
+    .why h2 { font-size: 1.9rem; font-weight: 800; color: #FFFFFF; margin-bottom: 40px; }
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+    .why-item { padding: 24px; background: #1A3552; border-radius: 6px; }
+    .why-icon { font-size: 2rem; margin-bottom: 12px; }
+    .why-item h4 { font-size: 0.95rem; font-weight: 700; color: #FFFFFF; margin-bottom: 8px; }
+    .why-item p { font-size: 0.82rem; color: #7A95B0; line-height: 1.6; }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo">Auto<span>Prime</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">Inicio</a></li>
+      <li><a href="about.html">Nosotros</a></li>
+      <li><a href="contact.html">Contacto</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-text">
+      <p class="hero-eyebrow">Concesionaria Oficial · Lima, Perú</p>
+      <h1>Tu próximo vehículo te está <em>esperando</em></h1>
+      <p>Más de 200 vehículos nuevos y seminuevos disponibles. Financiamiento flexible, garantía extendida y entrega en 48 horas.</p>
+      <a href="contact.html" class="btn-primary">Solicitar Cotización</a>
+      <a href="about.html" class="btn-secondary">Conocernos</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><strong>200+</strong><span>Vehículos en stock</span></div>
+      <div class="stat"><strong>12</strong><span>Años de experiencia</span></div>
+      <div class="stat"><strong>98%</strong><span>Clientes satisfechos</span></div>
+    </div>
+  </section>
+
+  <!-- VEHICLES -->
+  <section class="section">
+    <div class="section-header">
+      <h2>Vehículos Destacados</h2>
+      <p>Selección actualizada cada semana. Todos con revisión técnica completa.</p>
+    </div>
+    <div class="cards-grid">
+
+      <div class="card">
+        <div class="card-img">🚗</div>
+        <div class="card-body">
+          <p class="card-tag">Sedán · Nuevo</p>
+          <h3>Toyota Corolla 2025</h3>
+          <p class="card-specs">1.8L · Automático · 5 puertas<br>Combustible: Gasolina</p>
+          <div class="card-footer">
+            <div>
+              <div class="price">S/ 89,900</div>
+              <div class="price-sub">Desde S/ 1,250/mes</div>
+            </div>
+            <a href="contact.html" class="btn-card">Ver detalles</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-img">🚙</div>
+        <div class="card-body">
+          <p class="card-tag">SUV · Nuevo</p>
+          <h3>Hyundai Tucson 2025</h3>
+          <p class="card-specs">2.0L · Automático · 5 puertas<br>Combustible: Gasolina</p>
+          <div class="card-footer">
+            <div>
+              <div class="price">S/ 128,500</div>
+              <div class="price-sub">Desde S/ 1,790/mes</div>
+            </div>
+            <a href="contact.html" class="btn-card">Ver detalles</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-img">⚡</div>
+        <div class="card-body">
+          <p class="card-tag">Eléctrico · Nuevo</p>
+          <h3>BYD Seal 2024</h3>
+          <p class="card-specs">Motor eléctrico · Automático · 4 puertas<br>Autonomía: 570 km</p>
+          <div class="card-footer">
+            <div>
+              <div class="price">S/ 149,900</div>
+              <div class="price-sub">Desde S/ 2,090/mes</div>
+            </div>
+            <a href="contact.html" class="btn-card">Ver detalles</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- WHY -->
+  <section class="why">
+    <h2>Por qué elegir AutoPrime</h2>
+    <div class="why-grid">
+      <div class="why-item">
+        <div class="why-icon">🛡️</div>
+        <h4>Garantía Extendida</h4>
+        <p>Hasta 3 años de garantía en todos los vehículos nuevos de nuestro stock.</p>
+      </div>
+      <div class="why-item">
+        <div class="why-icon">💳</div>
+        <h4>Financiamiento Flexible</h4>
+        <p>Hasta 60 cuotas con tasas desde 8.9% anual. Aprobación en 24 horas.</p>
+      </div>
+      <div class="why-item">
+        <div class="why-icon">🔧</div>
+        <h4>Revisión Técnica</h4>
+        <p>Cada unidad pasa por 80 puntos de inspección antes de estar disponible.</p>
+      </div>
+      <div class="why-item">
+        <div class="why-icon">🚚</div>
+        <h4>Entrega a Domicilio</h4>
+        <p>Recibe tu vehículo donde lo necesites dentro de Lima en 48 horas.</p>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>

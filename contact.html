@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AutoPrime — Contacto</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: #F4F6F9;
+      color: #1B2638;
+    }
+
+    /* ── NAV ── */
+    nav {
+      background: #0D1B2A;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      height: 64px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-logo {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #FFFFFF;
+      letter-spacing: -0.5px;
+      text-decoration: none;
+    }
+    .nav-logo span { color: #E8700A; }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a {
+      color: #A8B4C4;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+    .nav-links a:hover, .nav-links a.active { color: #FFFFFF; }
+    .nav-links a.active { border-bottom: 2px solid #E8700A; padding-bottom: 2px; }
+
+    /* ── PAGE HEADER ── */
+    .page-header {
+      background: linear-gradient(135deg, #0D1B2A 55%, #1A3552 100%);
+      padding: 64px 48px 56px;
+      color: #FFFFFF;
+    }
+    .breadcrumb {
+      font-size: 0.78rem;
+      color: #7A95B0;
+      margin-bottom: 16px;
+    }
+    .breadcrumb a { color: #7A95B0; text-decoration: none; }
+    .breadcrumb a:hover { color: #E8700A; }
+    .page-header h1 { font-size: 2.5rem; font-weight: 800; margin-bottom: 12px; }
+    .page-header p {
+      color: #A8B4C4;
+      font-size: 1rem;
+      max-width: 500px;
+      line-height: 1.7;
+    }
+
+    /* ── CONTACT LAYOUT ── */
+    .contact-layout {
+      display: grid;
+      grid-template-columns: 2fr 1.1fr;
+      gap: 40px;
+      padding: 64px 48px;
+      align-items: start;
+    }
+
+    /* ── FORM ── */
+    .form-card {
+      background: #FFFFFF;
+      border-radius: 8px;
+      border: 1px solid #DDE3EC;
+      padding: 40px;
+    }
+    .form-card h2 { font-size: 1.4rem; font-weight: 800; color: #0D1B2A; margin-bottom: 6px; }
+    .form-card > p { font-size: 0.88rem; color: #7A90A4; margin-bottom: 32px; }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .form-group { margin-bottom: 20px; }
+    .form-group label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #3A5070;
+      margin-bottom: 8px;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1.5px solid #D0D9E6;
+      border-radius: 5px;
+      font-size: 0.9rem;
+      font-family: inherit;
+      color: #1B2638;
+      background: #F9FAFC;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: #E8700A;
+      background: #FFFFFF;
+    }
+    .form-group textarea { resize: vertical; min-height: 120px; }
+
+    .form-group select { appearance: none; cursor: pointer; }
+
+    .form-notice {
+      font-size: 0.77rem;
+      color: #9AABB8;
+      margin-bottom: 24px;
+      line-height: 1.6;
+    }
+
+    .btn-submit {
+      width: 100%;
+      background: #E8700A;
+      color: #FFFFFF;
+      border: none;
+      padding: 15px;
+      border-radius: 5px;
+      font-size: 1rem;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+    }
+    .btn-submit:hover { background: #C85F09; }
+
+    /* ── ASIDE ── */
+    .contact-aside { display: flex; flex-direction: column; gap: 20px; }
+
+    .info-card {
+      background: #FFFFFF;
+      border-radius: 8px;
+      border: 1px solid #DDE3EC;
+      padding: 28px;
+    }
+    .info-card h3 { font-size: 1rem; font-weight: 800; color: #0D1B2A; margin-bottom: 20px; }
+
+    .info-item {
+      display: flex;
+      gap: 14px;
+      margin-bottom: 18px;
+      align-items: flex-start;
+    }
+    .info-item:last-child { margin-bottom: 0; }
+    .info-icon {
+      font-size: 1.2rem;
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      background: #F4F6F9;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .info-label { font-size: 0.73rem; font-weight: 700; color: #9AABB8; margin-bottom: 3px; }
+    .info-value { font-size: 0.88rem; color: #1B2638; font-weight: 500; line-height: 1.5; }
+
+    .hours-grid { display: flex; flex-direction: column; gap: 8px; }
+    .hours-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.82rem;
+    }
+    .hours-row .day { color: #6A7F96; }
+    .hours-row .time { font-weight: 600; color: #1B2638; }
+
+    .divider { height: 1px; background: #EDF0F5; margin: 12px 0; }
+
+    .dark-card {
+      background: #0D1B2A;
+      border-radius: 8px;
+      padding: 28px;
+    }
+    .dark-card h3 { font-size: 1rem; font-weight: 800; color: #FFFFFF; margin-bottom: 8px; }
+    .dark-card p { font-size: 0.82rem; color: #7A95B0; line-height: 1.65; margin-bottom: 20px; }
+    .btn-whatsapp {
+      display: block;
+      text-align: center;
+      background: #25D366;
+      color: #FFFFFF;
+      text-decoration: none;
+      padding: 12px;
+      border-radius: 5px;
+      font-size: 0.88rem;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo">Auto<span>Prime</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="about.html">Nosotros</a></li>
+      <li><a href="contact.html" class="active">Contacto</a></li>
+    </ul>
+  </nav>
+
+  <!-- PAGE HEADER -->
+  <section class="page-header">
+    <p class="breadcrumb"><a href="index.html">Inicio</a> / Contacto</p>
+    <h1>Contáctanos</h1>
+    <p>¿Tienes alguna consulta o quieres reservar una prueba de manejo? Escríbenos y te respondemos en menos de 2 horas.</p>
+  </section>
+
+  <!-- CONTACT LAYOUT -->
+  <div class="contact-layout">
+
+    <!-- FORM -->
+    <div class="form-card">
+      <h2>Solicita información</h2>
+      <p>Completa el formulario y un asesor se comunicará contigo a la brevedad.</p>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="nombre">Nombre completo</label>
+          <input type="text" id="nombre" placeholder="Ej: Ana García" />
+        </div>
+        <div class="form-group">
+          <label for="telefono">Teléfono</label>
+          <input type="tel" id="telefono" placeholder="Ej: 987 654 321" />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Correo electrónico</label>
+        <input type="email" id="email" placeholder="tu@correo.com" />
+      </div>
+
+      <div class="form-group">
+        <label for="vehiculo">Vehículo de interés</label>
+        <select id="vehiculo">
+          <option value="" disabled selected>Selecciona una categoría</option>
+          <option>Sedán</option>
+          <option>SUV / Camioneta</option>
+          <option>Pick-up</option>
+          <option>Eléctrico / Híbrido</option>
+          <option>Seminuevo certificado</option>
+          <option>Aún no lo sé, necesito asesoría</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="mensaje">Mensaje (opcional)</label>
+        <textarea id="mensaje" placeholder="Cuéntanos qué buscas, tu presupuesto, o cualquier duda que tengas..."></textarea>
+      </div>
+
+      <p class="form-notice">Al enviar este formulario aceptas que AutoPrime se ponga en contacto contigo por los medios indicados. No compartimos tu información con terceros.</p>
+
+      <button class="btn-submit">Enviar solicitud</button>
+    </div>
+
+    <!-- ASIDE -->
+    <div class="contact-aside">
+
+      <div class="info-card">
+        <h3>Información de contacto</h3>
+        <div class="info-item">
+          <div class="info-icon">📍</div>
+          <div>
+            <p class="info-label">Dirección</p>
+            <p class="info-value">Av. Larco 1420, Miraflores<br>Lima, Perú</p>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">📞</div>
+          <div>
+            <p class="info-label">Teléfono</p>
+            <p class="info-value">(01) 445-8800</p>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">✉️</div>
+          <div>
+            <p class="info-label">Correo</p>
+            <p class="info-value">ventas@autoprime.pe</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="info-card">
+        <h3>Horario de atención</h3>
+        <div class="hours-grid">
+          <div class="hours-row">
+            <span class="day">Lunes – Viernes</span>
+            <span class="time">9:00 – 19:00</span>
+          </div>
+          <div class="hours-row">
+            <span class="day">Sábados</span>
+            <span class="time">9:00 – 17:00</span>
+          </div>
+          <div class="hours-row">
+            <span class="day">Domingos</span>
+            <span class="time">10:00 – 14:00</span>
+          </div>
+          <div class="divider"></div>
+          <div class="hours-row">
+            <span class="day">Feriados</span>
+            <span class="time">Consultar</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="dark-card">
+        <h3>¿Prefieres WhatsApp?</h3>
+        <p>Chatea directamente con un asesor disponible ahora mismo y recibe atención inmediata.</p>
+        <a href="#" class="btn-whatsapp">💬 Abrir WhatsApp</a>
+      </div>
+
+    </div>
+  </div>
+
+</body>
+</html>

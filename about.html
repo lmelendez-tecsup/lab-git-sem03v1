@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AutoPrime — Nosotros</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: #F4F6F9;
+      color: #1B2638;
+    }
+
+    /* ── NAV ── */
+    nav {
+      background: #0D1B2A;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      height: 64px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-logo {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #FFFFFF;
+      letter-spacing: -0.5px;
+      text-decoration: none;
+    }
+    .nav-logo span { color: #E8700A; }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a {
+      color: #A8B4C4;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover, .nav-links a.active { color: #FFFFFF; }
+    .nav-links a.active { border-bottom: 2px solid #E8700A; padding-bottom: 2px; }
+
+    /* ── PAGE HEADER ── */
+    .page-header {
+      background: linear-gradient(135deg, #0D1B2A 55%, #1A3552 100%);
+      padding: 64px 48px 56px;
+      color: #FFFFFF;
+    }
+    .breadcrumb {
+      font-size: 0.78rem;
+      color: #7A95B0;
+      margin-bottom: 16px;
+    }
+    .breadcrumb a { color: #7A95B0; text-decoration: none; }
+    .breadcrumb a:hover { color: #E8700A; }
+    .page-header h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+    .page-header p {
+      color: #A8B4C4;
+      font-size: 1rem;
+      max-width: 520px;
+      line-height: 1.7;
+    }
+
+    /* ── STORY ── */
+    .story {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      padding: 72px 48px;
+      align-items: center;
+    }
+    .story-text h2 {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: #0D1B2A;
+      margin-bottom: 20px;
+      line-height: 1.2;
+    }
+    .story-text p {
+      font-size: 0.97rem;
+      color: #4A6070;
+      line-height: 1.8;
+      margin-bottom: 16px;
+    }
+    .story-visual {
+      background: linear-gradient(135deg, #0D1B2A, #1A3552);
+      border-radius: 8px;
+      height: 340px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+    }
+    .story-visual .big-icon { font-size: 5rem; }
+    .story-visual p {
+      font-size: 0.85rem;
+      color: #7A95B0;
+      text-align: center;
+    }
+
+    /* ── MILESTONES ── */
+    .milestones { background: #FFFFFF; padding: 72px 48px; }
+    .milestones h2 {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: #0D1B2A;
+      margin-bottom: 48px;
+    }
+    .timeline {
+      display: flex;
+      gap: 0;
+      position: relative;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      top: 20px;
+      left: 0; right: 0;
+      height: 2px;
+      background: #DDE3EC;
+    }
+    .milestone { flex: 1; padding-top: 48px; position: relative; padding-right: 24px; }
+    .milestone-dot {
+      width: 14px;
+      height: 14px;
+      background: #E8700A;
+      border-radius: 50%;
+      position: absolute;
+      top: 13px;
+      left: 0;
+      border: 3px solid #FFFFFF;
+      outline: 2px solid #E8700A;
+    }
+    .milestone-year {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #E8700A;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+    .milestone h4 { font-size: 0.92rem; font-weight: 700; color: #0D1B2A; margin-bottom: 6px; }
+    .milestone p { font-size: 0.8rem; color: #7A90A4; line-height: 1.6; }
+
+    /* ── TEAM ── */
+    .team { padding: 72px 48px; }
+    .team h2 { font-size: 1.8rem; font-weight: 800; color: #0D1B2A; margin-bottom: 8px; }
+    .team > p { font-size: 0.97rem; color: #6A7F96; margin-bottom: 48px; }
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .member {
+      background: #FFFFFF;
+      border-radius: 6px;
+      border: 1px solid #DDE3EC;
+      padding: 32px 24px;
+      text-align: center;
+    }
+    .avatar {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: #1A3552;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      margin: 0 auto 16px;
+    }
+    .member h4 { font-size: 1rem; font-weight: 700; color: #0D1B2A; margin-bottom: 4px; }
+    .member-role { font-size: 0.78rem; color: #E8700A; font-weight: 600; margin-bottom: 12px; }
+    .member p { font-size: 0.82rem; color: #7A90A4; line-height: 1.6; }
+
+    /* ── VALUES ── */
+    .values { background: #0D1B2A; padding: 72px 48px; }
+    .values h2 { font-size: 1.8rem; font-weight: 800; color: #FFFFFF; margin-bottom: 40px; }
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .value-card { padding: 28px; border: 1px solid #2A4560; border-radius: 6px; }
+    .value-card .val-icon { font-size: 1.8rem; margin-bottom: 12px; }
+    .value-card h4 { font-size: 0.97rem; font-weight: 700; color: #FFFFFF; margin-bottom: 10px; }
+    .value-card p { font-size: 0.82rem; color: #7A95B0; line-height: 1.65; }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo">Auto<span>Prime</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="about.html" class="active">Nosotros</a></li>
+      <li><a href="contact.html">Contacto</a></li>
+    </ul>
+  </nav>
+
+  <!-- PAGE HEADER -->
+  <section class="page-header">
+    <p class="breadcrumb"><a href="index.html">Inicio</a> / Nosotros</p>
+    <h1>Nuestra Historia</h1>
+    <p>Desde 2012, conectamos a las personas con el vehículo que transforma su vida cotidiana.</p>
+  </section>
+
+  <!-- STORY -->
+  <section class="story">
+    <div class="story-text">
+      <h2>Más de una década impulsando sueños en ruedas</h2>
+      <p>AutoPrime nació en Lima con una convicción simple: comprar un vehículo debe ser una experiencia transparente, ágil y sin sorpresas. En un mercado donde la desconfianza era la norma, decidimos construir algo diferente.</p>
+      <p>Comenzamos con un pequeño showroom en Miraflores y 18 unidades en stock. Hoy contamos con instalaciones en tres distritos, más de 200 vehículos disponibles y un equipo de 45 personas comprometidas con cada cliente.</p>
+      <p>No vendemos autos: ayudamos a cada persona a encontrar el vehículo que encaja con su vida.</p>
+    </div>
+    <div class="story-visual">
+      <div class="big-icon">🏢</div>
+      <p>Sede principal · Miraflores, Lima</p>
+    </div>
+  </section>
+
+  <!-- MILESTONES -->
+  <section class="milestones">
+    <h2>Nuestro recorrido</h2>
+    <div class="timeline">
+      <div class="milestone">
+        <div class="milestone-dot"></div>
+        <p class="milestone-year">2012</p>
+        <h4>Fundación</h4>
+        <p>Apertura del primer local con 18 vehículos y 6 colaboradores.</p>
+      </div>
+      <div class="milestone">
+        <div class="milestone-dot"></div>
+        <p class="milestone-year">2015</p>
+        <h4>Expansión</h4>
+        <p>Segunda sede en San Isidro y primeras alianzas con bancos locales.</p>
+      </div>
+      <div class="milestone">
+        <div class="milestone-dot"></div>
+        <p class="milestone-year">2018</p>
+        <h4>Premio Sectorial</h4>
+        <p>Reconocidos como la concesionaria con mayor satisfacción al cliente en Lima.</p>
+      </div>
+      <div class="milestone">
+        <div class="milestone-dot"></div>
+        <p class="milestone-year">2022</p>
+        <h4>Catálogo Eléctrico</h4>
+        <p>Incorporación de vehículos eléctricos e híbridos a nuestro inventario.</p>
+      </div>
+      <div class="milestone">
+        <div class="milestone-dot"></div>
+        <p class="milestone-year">2025</p>
+        <h4>200+ Unidades</h4>
+        <p>El mayor stock propio de vehículos seminuevos certificados del país.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEAM -->
+  <section class="team">
+    <h2>El equipo detrás</h2>
+    <p>Profesionales apasionados por la industria automotriz y el servicio al cliente.</p>
+    <div class="team-grid">
+      <div class="member">
+        <div class="avatar">👨‍💼</div>
+        <h4>Carlos Mendoza</h4>
+        <p class="member-role">Fundador y Director General</p>
+        <p>Ingeniero mecánico con 20 años en la industria automotriz. Visión que dio origen a AutoPrime.</p>
+      </div>
+      <div class="member">
+        <div class="avatar">👩‍💼</div>
+        <h4>Valeria Torres</h4>
+        <p class="member-role">Jefa de Ventas</p>
+        <p>Especialista en experiencia de cliente. Lidera un equipo de 15 asesores certificados.</p>
+      </div>
+      <div class="member">
+        <div class="avatar">🔧</div>
+        <h4>Miguel Quispe</h4>
+        <p class="member-role">Jefe de Inspección Técnica</p>
+        <p>Técnico certificado con 12 años revisando cada unidad antes de que llegue al cliente.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- VALUES -->
+  <section class="values">
+    <h2>Lo que nos guía</h2>
+    <div class="values-grid">
+      <div class="value-card">
+        <div class="val-icon">🤝</div>
+        <h4>Transparencia total</h4>
+        <p>Sin costos ocultos, sin letras pequeñas. Cada precio y condición se explica antes de firmar.</p>
+      </div>
+      <div class="value-card">
+        <div class="val-icon">🎯</div>
+        <h4>Asesoría real</h4>
+        <p>Nuestros asesores escuchan antes de sugerir. El vehículo correcto depende de tu vida, no de nuestra comisión.</p>
+      </div>
+      <div class="value-card">
+        <div class="val-icon">♻️</div>
+        <h4>Compromiso sostenible</h4>
+        <p>Promovemos la movilidad eléctrica e híbrida con incentivos concretos para quienes dan el paso.</p>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>
